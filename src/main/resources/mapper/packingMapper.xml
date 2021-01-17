@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hopu.mapper.packingMapper">
+    <resultMap type="com.hopu.model.packing" id="packingListRM">
+        <id property="PACKING_LIST_ID" column="PACKING_LIST_ID"/>
+        <result property="SELLER" column="SELLER"/>
+        <result property="BUYER" column="BUYER"/>
+        <result property="INVOICE_NO" column="INVOICE_NO"/>
+        <result property="INVOICE_DATE" column="INVOICE_DATE"/>
+        <result property="MARKS" column="MARKS"/>
+        <result property="DESCRIPTIONS" column="DESCRIPTIONS"/>
+
+        <result property="EXPORT_IDS" column="EXPORT_IDS"/>
+        <result property="EXPORT_NOS" column="EXPORT_NOS"/>
+
+        <result property="STATE" column="STATE"/>
+        <result property="CREATE_BY" column="CREATE_BY"/>
+        <result property="CREATE_DEPT" column="CREATE_DEPT"/>
+        <result property="CREATE_TIME" column="CREATE_TIME"/>
+    </resultMap>
+
+    <select id="find" resultMap="packingListRM">
+        select *from PACKING_LIST_C
+    </select>
+    <insert id="insert" parameterType="com.hopu.model.packing">
+        insert into packing_list_c
+        (PACKING_LIST_ID,SELLER,BUYER,INVOICE_NO,INVOICE_DATE,MARKS,DESCRIPTIONS,EXPORT_IDS,EXPORT_NOS,STATE)
+        values
+        (
+        #{PACKING_LIST_ID},
+        #{SELLER},
+        #{BUYER},
+        #{INVOICE_NO},
+        #{INVOICE_DATE},
+        #{MARKS},
+        #{DESCRIPTIONS},
+        #{EXPORT_IDS},
+        #{EXPORT_NOS},
+        #{STATE}
+        )
+    </insert>
+    <update id="update" parameterType="com.hopu.model.packing">
+        update packing_list_c set
+        SELLER=#{SELLER},BUYER=#{BUYER},INVOICE_NO=#{INVOICE_NO},INVOICE_DATE=#{INVOICE_DATE},MARKS=#{MARKS},DESCRIPTIONS=#{DESCRIPTIONS},EXPORT_IDS=#{EXPORT_IDS},EXPORT_NOS=#{EXPORT_NOS}
+        where PACKING_LIST_ID=#{PACKING_LIST_ID}
+    </update>
+    <select id="selectbyid" resultType="com.hopu.model.packing">
+        select *from packing_list_c where PACKING_LIST_ID= #{PACKING_LIST_ID}
+    </select>
+</mapper>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hopu.mapper.ExportMapper">
+    <resultMap type="com.hopu.model.Export" id="exportRM">
+        <id property="EXPORT_ID" column="EXPORT_ID"/>
+
+        <!-- 虚拟字段 -->
+        <result property="EPNUM" column="EPNUM"/>
+        <result property="EXTNUM" column="EXTNUM"/>
+        <result property="INPUT_DATE" column="INPUT_DATE"/>
+        <result property="CONTRACT_IDS" column="CONTRACT_IDS"/>
+        <result property="CUSTOMER_CONTRACT" column="CUSTOMER_CONTRACT"/>
+        <result property="LCNO" column="LCNO"/>
+        <result property="CONSIGNEE" column="CONSIGNEE"/>
+        <result property="MARKS" column="MARKS"/>
+        <result property="REMARK" column="REMARK"/>
+        <result property="SHIPMENT_PORT" column="SHIPMENT_PORT"/>
+        <result property="DESTINATION_PORT" column="DESTINATION_PORT"/>
+        <result property="TRANSPORT_MODE" column="TRANSPORT_MODE"/>
+        <result property="PRICE_CONDITION" column="PRICE_CONDITION"/>
+        <result property="GROSS_WEIGHT" column="GROSS_WEIGHT"/>
+        <result property="NET_WEIGHT" column="NET_WEIGHT"/>
+        <result property="STATE" column="STATE"/>
+
+        <result property="CREATE_BY" column="CREATE_BY"/>
+        <result property="CREATE_DEPT" column="CREATE_DEPT"/>
+        <result property="CREATE_TIME" column="CREATE_TIME"/>
+    </resultMap>
+    <select id="find" resultMap="exportRM">
+        select
+        (select count(*) from EXPORT_PRODUCT_C
+        where export_id=e.export_id) as epnum,
+        (select count(*) from EXPORT_PRODUCT_C
+        where export_product_id in (select export_product_id from EXPORT_PRODUCT_C where export_id=e.export_id)
+        ) as extnum,
+
+        e.export_id,e.input_date,e.contract_ids,e.customer_contract,e.lcno,e.consignee,e.marks,e.remark,e.shipment_port,e.destination_port,e.transport_mode,e.price_condition,e.gross_weight,e.net_weight,e.state
+        from EXPORT_C e
+    </select>
+    <insert id="insertexport" parameterType="com.hopu.model.Export">
+        insert into EXPORT_C(EXPORT_ID,CONTRACT_IDS,CUSTOMER_CONTRACT,STATE)values
+        (#{EXPORT_ID},#{CONTRACT_IDS},#{CUSTOMER_CONTRACT},#{STATE})
+    </insert>
+    <select id="selectbyid" resultType="com.hopu.model.Export">
+        select * from EXPORT_C where EXPORT_ID=#{EXPORT_ID}
+    </select>
+</mapper>

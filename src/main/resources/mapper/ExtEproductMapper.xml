@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hopu.mapper.ExtEproductMapper">
+    <insert id="insertexe" parameterType="com.hopu.model.ExtEproduct">
+        insert into EXT_EPRODUCT_C(EXT_EPRODUCT_ID,EXPORT_PRODUCT_ID,FACTORY_ID)values
+        (#{EXT_EPRODUCT_ID},#{EXPORT_PRODUCT_ID},#{FACTORY_ID})
+    </insert>
+</mapper>

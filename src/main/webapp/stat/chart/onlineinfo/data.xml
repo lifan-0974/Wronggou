@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chart>
+    <series>
+        <value xid="0">1</value>
+        <value xid="1">6</value>
+        <value xid="2">10</value>
+        <value xid="3">3</value>
+        <value xid="4">5</value>
+        <value xid="5">2</value>
+        <value xid="6">9</value>
+        <value xid="7">4</value>
+        <value xid="8">7</value>
+        <value xid="9">8</value>
+    </series>
+    <graphs>
+        <graph gid="30" color="#FFCC00" gradient_fill_colors="#111111, #1A897C">
+            <value xid="0"></value>
+            <value xid="1"></value>
+            <value xid="2"></value>
+            <value xid="3"></value>
+            <value xid="4"></value>
+            <value xid="5"></value>
+            <value xid="6"></value>
+            <value xid="7"></value>
+            <value xid="8"></value>
+            <value xid="9"></value>
+        </graph>
+    </graphs>
+</chart>

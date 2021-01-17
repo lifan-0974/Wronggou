@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chart>
+    <series>
+        <value xid="0">1</value>
+        <value xid="1">2</value>
+    </series>
+    <graphs>
+        <graph gid="30" color="#FFCC00" gradient_fill_colors="#111111, #1A897C">
+            <value xid="0">31</value>
+            <value xid="1">4</value>
+        </graph>
+    </graphs>
+</chart>

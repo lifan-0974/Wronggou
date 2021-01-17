@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hopu.mapper.ExportproductMapper">
+    <insert id="insertexport" parameterType="com.hopu.model.Exportproduct">
+        insert into EXPORT_PRODUCT_C (EXPORT_PRODUCT_ID,EXPORT_ID,PRODUCT_NO,PACKING_UNIT,CNUMBER,BOX_NUM,PRICE) values
+        (#{EXPORT_PRODUCT_ID},#{EXPORT_ID},#{PRODUCT_NO},#{PACKING_UNIT},#{CNUMBER},#{BOX_NUM},#{PRICE})
+    </insert>
+</mapper>

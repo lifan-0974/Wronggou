@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hopu.mapper.OutProductVOMapper">
+    <resultMap type="com.hopu.model.OutProductVO" id="outProductRM">
+        <result property="customName" column="CUSTOM_NAME"/>
+        <result property="contractNo" column="CONTRACT_NO"/>
+        <result property="productNo" column="PRODUCT_NO"/>
+        <result property="cnumber" column="CNUMBER"/>
+        <result property="deliveryPeriod" column="DELIVERY_PERIOD"/>
+        <result property="shipTime" column="SHIP_TIME"/>
+
+    </resultMap>
+    <select id="findout" resultMap="outProductRM">
+        select
+        c.custom_name,c.contract_no,c.delivery_period as delivery_period,c.ship_time as ship_time,
+        cp.product_no,concat(cp.cnumber,cp.packing_unit) as cnumber,cp.factory
+        from
+        (select contract_id,custom_name,contract_no,delivery_period,ship_time from contract_c) c
+        left join
+        (select contract_id,product_no,cnumber,packing_unit,factory from contract_product_c) cp
+        on c.CONTRACT_ID=cp.CONTRACT_ID where c.ship_time = #{ship_time}
+    </select>
+    <select id="selectfindout" resultMap="outProductRM">
+        select * from CONTRACT_PRODUCT_C,Factory_c where CONTRACT_PRODUCT_C.FACTORY_ID=Factory_c.FACTORY_ID and
+        CONTRACT_ID=#{CONTRACT_ID}
+    </select>
+</mapper>

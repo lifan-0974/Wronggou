@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hopu.mapper.Contract_ProductMapper">
+    <resultMap id="selecttwoall" type="com.hopu.model.CONTRACT_PRODUCT_C" autoMapping="true">
+        <id property="CONTRACT_PRODUCT_ID" column="CONTRACT_PRODUCT_ID"></id>
+        <collection property="contract_c" ofType="com.hopu.model.Contract_c" autoMapping="true">
+            <id property="CONTRACT_ID" column="CONTRACT_ID"></id>
+        </collection>
+        <collection property="factory_c" ofType="com.hopu.model.Factory_c" autoMapping="true">
+            <id property="FACTORY_ID" column="FACTORY_ID"></id>
+            <result column="FACTORY_NAME" property="FACTORY_NAME"></result>
+        </collection>
+    </resultMap>
+
+    <select id="selecttwo" resultMap="selecttwoall">
+        select * from CONTRACT_PRODUCT_C,Factory_c where CONTRACT_PRODUCT_C.FACTORY_ID=Factory_c.FACTORY_ID and
+        CONTRACT_ID=#{CONTRACT_ID}
+    </select>
+
+    <insert id="insertcontandfact" parameterType="com.hopu.model.CONTRACT_PRODUCT_C">
+        insert into
+        CONTRACT_PRODUCT_C(CONTRACT_ID,CONTRACT_PRODUCT_ID,FACTORY_ID,PRODUCT_NO,PRODUCT_IMAGE,CNUMBER,LOADING_RATE,PRICE,PRODUCT_DESC,PACKING_UNIT,BOX_NUM,ORDER_NO)values
+        (#{CONTRACT_ID},#{CONTRACT_PRODUCT_ID},#{FACTORY_ID},#{PRODUCT_NO},#{PRODUCT_IMAGE},#{CNUMBER},#{LOADING_RATE},#{PRICE},#{PRODUCT_DESC},#{PACKING_UNIT},#{BOX_NUM},#{ORDER_NO})
+    </insert>
+    <delete id="deletecontandfact" parameterType="com.hopu.model.CONTRACT_PRODUCT_C">
+        delete from CONTRACT_PRODUCT_C where CONTRACT_PRODUCT_ID in (#{CONTRACT_PRODUCT_ID})
+    </delete>
+    <select id="selecttwobyid" resultType="com.hopu.model.CONTRACT_PRODUCT_C">
+        select * from CONTRACT_PRODUCT_C where CONTRACT_PRODUCT_ID=#{CONTRACT_PRODUCT_ID}
+    </select>
+    <update id="updatecontandfact" parameterType="com.hopu.model.CONTRACT_PRODUCT_C">
+        update CONTRACT_PRODUCT_C set
+        FACTORY_ID=#{FACTORY_ID},PRODUCT_NO=#{PRODUCT_NO},PRODUCT_IMAGE=#{PRODUCT_IMAGE},CNUMBER=#{CNUMBER},LOADING_RATE=#{LOADING_RATE},PRICE=#{PRICE},PRODUCT_DESC=#{PRODUCT_DESC},PACKING_UNIT=#{PACKING_UNIT},BOX_NUM=#{BOX_NUM},ORDER_NO=#{ORDER_NO}
+        where CONTRACT_PRODUCT_ID=#{CONTRACT_PRODUCT_ID}
+    </update>
+    <delete id="deleteByContractId" parameterType="com.hopu.model.CONTRACT_PRODUCT_C">
+        delete from CONTRACT_PRODUCT_C where CONTRACT_ID in(#{CONTRACT_ID})
+    </delete>
+</mapper>

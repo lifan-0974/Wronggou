@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hopu.mapper.Contract_cMapper">
+    <select id="selectconall" resultType="com.hopu.model.Contract_c">
+
+        select
+        (select count(*) from contract_product_c
+        where contract_id=c.contract_id) as cpnum,
+        (select count(*) from ext_cproduct_c
+        where contract_product_id in (select contract_product_id from contract_product_c where
+        contract_id=c.contract_id)
+        ) as extnum,
+        (
+        nvl((select sum(cnumber*price) as cptotal from contract_product_c
+        where contract_id =c.contract_id),0)
+        +
+        nvl(
+        (select sum(cnumber*price) as exttotal from ext_cproduct_c
+        where contract_product_id in (select contract_product_id from contract_product_c where
+        contract_id=c.contract_id))
+        ,0)
+        ) as total_amount,
+        c.CONTRACT_ID,c.OFFEROR,c.CONTRACT_NO,c.SIGNING_DATE,c.INPUT_BY,c.CHECK_BY,c.INSPECTOR,c.IMPORT_NUM,c.CUSTOM_NAME,c.DELIVERY_PERIOD,c.SHIP_TIME,c.REMARK,c.PRINT_STYLE,c.OLD_STATE,c.STATE,c.OUT_STATE
+        from contract_c c
+    </select>
+    <select id="outcontract" resultType="com.hopu.model.Contract_c">
+        select
+        (select count(*) from contract_product_c
+        where contract_id=c.contract_id) as cpnum,
+        (select count(*) from ext_cproduct_c
+        where contract_product_id in (select contract_product_id from contract_product_c where
+        contract_id=c.contract_id)
+        ) as extnum,
+        (
+        nvl((select sum(cnumber*price) as cptotal from contract_product_c
+        where contract_id =c.contract_id),0)
+        +
+        nvl(
+        (select sum(cnumber*price) as exttotal from ext_cproduct_c
+        where contract_product_id in (select contract_product_id from contract_product_c where
+        contract_id=c.contract_id))
+        ,0)
+        ) as total_amount,
+        c.CONTRACT_ID,c.OFFEROR,c.CONTRACT_NO,c.SIGNING_DATE,c.INPUT_BY,c.CHECK_BY,c.INSPECTOR,c.IMPORT_NUM,c.CUSTOM_NAME,c.DELIVERY_PERIOD,c.SHIP_TIME,c.REMARK,c.PRINT_STYLE,c.OLD_STATE,c.STATE,c.OUT_STATE
+        from contract_c c where c.ship_time=#{ship_time}
+    </select>
+
+    <insert id="insertcont" parameterType="com.hopu.model.Contract_c">
+        insert into Contract_c
+        (CONTRACT_ID,CUSTOM_NAME,CONTRACT_NO,SIGNING_DATE,DELIVERY_PERIOD,INPUT_BY,REQUEST,OFFEROR,PRINT_STYLE,IMPORT_NUM,SHIP_TIME,INSPECTOR,CHECK_BY,REMARK,STATE)
+        values
+        (#{CONTRACT_ID},#{CUSTOM_NAME},#{CONTRACT_NO},#{SIGNING_DATE},#{DELIVERY_PERIOD},#{INPUT_BY},#{REQUEST},#{OFFEROR},#{PRINT_STYLE},#{IMPORT_NUM},#{SHIP_TIME},#{INSPECTOR},#{CHECK_BY},#{REMARK},#{STATE})
+    </insert>
+    <delete id="deletecont" parameterType="com.hopu.model.Contract_c">
+        delete from Contract_c where CONTRACT_ID in (#{CONTRACT_ID})
+    </delete>
+    <select id="selectcontbyid" resultType="com.hopu.model.Contract_c">
+        select * from Contract_c where CONTRACT_ID =#{CONTRACT_ID}
+    </select>
+    <update id="updatecont" parameterType="com.hopu.model.Contract_c">
+        update Contract_c set
+        CUSTOM_NAME=#{CUSTOM_NAME},CONTRACT_NO=#{CONTRACT_NO},SIGNING_DATE=#{SIGNING_DATE},DELIVERY_PERIOD=#{DELIVERY_PERIOD},INPUT_BY=#{INPUT_BY},REQUEST=#{REQUEST},OFFEROR=#{OFFEROR},PRINT_STYLE=#{PRINT_STYLE},IMPORT_NUM=#{IMPORT_NUM},SHIP_TIME=#{SHIP_TIME},INSPECTOR=#{INSPECTOR},CHECK_BY=#{CHECK_BY},REMARK=#{REMARK}
+        where CONTRACT_ID =#{CONTRACT_ID}
+    </update>
+    <update id="updatesatet" parameterType="com.hopu.model.Contract_c">
+        update Contract_c set STATE='2' where CONTRACT_ID =#{CONTRACT_ID}
+    </update>
+    <update id="updatesatet1" parameterType="com.hopu.model.Contract_c">
+        update Contract_c set STATE='1' where CONTRACT_ID =#{CONTRACT_ID}
+    </update>
+</mapper>

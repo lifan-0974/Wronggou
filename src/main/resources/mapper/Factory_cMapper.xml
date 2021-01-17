@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hopu.mapper.Factory_cMapper">
+    <select id="selectAll" resultType="com.hopu.model.Factory_c">
+        select * from Factory_c
+    </select>
+    <insert id="insert" parameterType="com.hopu.model.Factory_c">
+        insert into FACTORY_C
+        (FACTORY_ID,FULL_NAME,FACTORY_NAME,CONTACTOR,PHONE,MOBILE,FAX,CNOTE,CTYPE,STATE,INSPECTOR,ORDER_NO,CREATE_BY,CREATE_DEPT,CREATE_TIME)
+        values
+        (#{FACTORY_ID},#{FULL_NAME},#{FACTORY_NAME},#{CONTACTOR},#{PHONE},#{MOBILE},#{FAX},#{CNOTE},#{CTYPE},#{STATE},#{INSPECTOR},#{ORDER_NO},#{CREATE_BY},#{CREATE_DEPT},#{CREATE_TIME})
+    </insert>
+    <select id="selectbyid" resultType="com.hopu.model.Factory_c">
+        select * from Factory_c where FACTORY_ID=#{FACTORY_ID}
+    </select>
+    <update id="update" parameterType="com.hopu.model.Factory_c">
+        update Factory_c set
+        FULL_NAME=#{FULL_NAME},FACTORY_NAME=#{FACTORY_NAME},CONTACTOR=#{CONTACTOR},PHONE=#{PHONE},MOBILE=#{MOBILE},FAX=#{FAX},CNOTE=#{CNOTE},CTYPE=#{CTYPE},STATE=#{STATE},INSPECTOR=#{INSPECTOR},ORDER_NO=#{ORDER_NO},CREATE_BY=#{CREATE_BY},CREATE_DEPT=#{CREATE_DEPT},CREATE_TIME=#{CREATE_TIME}
+        where FACTORY_ID=#{FACTORY_ID}
+    </update>
+    <delete id="delete" parameterType="com.hopu.model.Factory_c">
+        delete from Factory_c where FACTORY_ID in (#{FACTORY_ID})
+    </delete>
+</mapper>
